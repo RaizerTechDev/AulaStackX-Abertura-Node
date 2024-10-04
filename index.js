@@ -5,15 +5,17 @@ const server = Express();
 
 server.use(Express.json());
 
-// Endpoint para a raiz
 server.get('/', (req, res) => {
-    res.status(200).json({ message: "Bem-vindo à API de Itens!" });
+    res.status(200).json({
+        message: "Bem-vindo à API de Itens!",
+        instructions: "Para acessar os itens, adicione '/itens' ao final da URL e atualize a página."
+    });
 });
 
 // Endpoint GET
 server.get('/items', (req, res) => { 
-    const items = readItem();
-    res.status(200).json(items);
+    const item = readItem();
+    res.status(200).json(item);
 });
 
 // Endpoint GET/ID
@@ -57,7 +59,7 @@ server.delete('/items/:id', (req, res) => {
     }
 });
 
-const port = process.env.PORT || 3000; // Defina a porta, usando uma variável de ambiente ou o valor padrão 3000.
+const port = process.env.PORT || 3000;
 
 server.listen(port, () => {
     console.log(`Servidor escutando na porta ${port}`);
