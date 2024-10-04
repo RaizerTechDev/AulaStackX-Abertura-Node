@@ -1,0 +1,25 @@
+{
+  "name": "aulastackx-abertura-node",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "nodemon": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "nodemon": "^3.1.7"
+  },
+  "description": "",
+  "dependencies": {
+    "aulastackx-abertura-node": "file:",
+    "express": "^4.21.0",
+    "fetch": "^1.1.0",
+    "filesystem": "^1.0.1"
+  },
+  "type": "module"
+}
