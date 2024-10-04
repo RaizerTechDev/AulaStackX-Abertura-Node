@@ -12,23 +12,24 @@ const server = Express();
 server.use(Express.json());
 
 server.get("/", (req, res) => {
-    res.status(200).json({
-      message: "🌟 Bem-vindo à API de Itens!",
-      instructions:
-        "Para acessar os itens, adicione '/itens' ao final da URL(https://aula-stack-x-abertura-node.vercel.app/) e atualize a página.",
-      postman_link:
-        "👉 Para começar a usar a API, acesse o link do Postman: (https://www.postman.com/)",
-      additional_message:
-        "✨ Esta API permite realizar operações de CRUD com itens! Experimente as seguintes ações:",
-      actions: {
-        post: "➕ Use POST em (json) para adicionar novos itens incríveis! Exemplo de itens (https://github.com/RafaRz76Dev/AulaStackX-Abertura-Node/blob/master/create_post.json)",
-        get: "🔍 Faça uma requisição GET para visualizar todos os itens.",
-        put: "✏️ Atualize os itens existentes com uma requisição PUT.",
-        delete: "🗑️ E não esqueça, você pode remover itens com DELETE!",
-      },
-    });
+  res.status(200).json({
+    message: "🌟 Bem-vindo à API de Itens!",
+    instructions:
+      "Para acessar os itens, adicione '/itens' ao final da URL(https://aula-stack-x-abertura-node.vercel.app/) e atualize a página.",
+    postman_link:
+      "👉 Para começar a usar a API, acesse o link do Postman: (https://www.postman.com/)",
+    additional_message:
+      "✨ Esta API permite realizar operações de CRUD com itens! Experimente as seguintes ações:",
+    actions: {
+      post: "➕ Use POST em (json) para adicionar novos itens incríveis! Exemplo de itens (https://github.com/RafaRz76Dev/AulaStackX-Abertura-Node/blob/master/create_post.json)",
+      get: "🔍 Faça uma requisição GET para visualizar todos os itens ou por (/ID) selecionando o item .",
+      put: "✏️ Atualize os itens existentes da lista (GET) com uma requisição PUT.",
+      delete:
+        "🗑️ E não esqueça, você pode remover itens com DELETE por (/ID) da lista (GET)!",
+    },
   });
-  
+});
+
 // Endpoint GET
 server.get("/itens", (req, res) => {
   const item = readItem();
