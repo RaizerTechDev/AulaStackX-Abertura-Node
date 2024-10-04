@@ -21,7 +21,7 @@ server.get("/", (req, res) => {
       additional_message:
         "✨ Esta API permite realizar operações de CRUD com itens! Experimente as seguintes ações:",
       actions: {
-        post: "➕ Use POST em (json) para adicionar novos itens incríveis! Exemplo de itens C:\\AulaStackX-Abertura-Node\\create_post.json)",
+        post: "➕ Use POST em (json) para adicionar novos itens incríveis! Exemplo de itens (https://github.com/RafaRz76Dev/AulaStackX-Abertura-Node/blob/master/create_post.json)",
         get: "🔍 Faça uma requisição GET para visualizar todos os itens.",
         put: "✏️ Atualize os itens existentes com uma requisição PUT.",
         delete: "🗑️ E não esqueça, você pode remover itens com DELETE!",
