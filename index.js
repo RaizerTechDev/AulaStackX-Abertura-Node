@@ -23,7 +23,7 @@ server.get("/", (req, res) => {
     actions: {
       post: "➕ Use POST em (json) para adicionar novos itens incríveis!👇🏽",
       Exemplo: ({
-        item: "Shampoo",
+        "item": "Shampoo",
       }),
       get: "🔍 Faça uma requisição GET para visualizar todos os itens.",
       put: "✏️ Atualize os itens existentes com uma requisição PUT.",
