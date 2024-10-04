@@ -15,7 +15,7 @@ server.get("/", (req, res) => {
   res.status(200).json({
     message: "🌟 Bem-vindo à API de Itens!",
     instructions:
-      "Para acessar os itens, adicione '/itens' ao final da URL(https://github.com/RafaRz76Dev/AulaStackX-Abertura-Node) e atualize a página.",
+      "Para acessar os itens, adicione '/itens' ao final da URL(https://aula-stack-x-abertura-node.vercel.app/) e atualize a página.",
     additional_message:
       "✨ Esta API permite realizar operações de CRUD com itens! Experimente as seguintes ações:",
     actions: {
