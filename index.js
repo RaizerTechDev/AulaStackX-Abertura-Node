@@ -7,8 +7,17 @@ server.use(Express.json());
 
 server.get('/', (req, res) => {
     res.status(200).json({
-        message: "Bem-vindo à API de Itens!",
-        instructions: "Para acessar os itens, adicione '/itens' ao final da URL e atualize a página."
+        message: "🌟 Bem-vindo à API de Itens!",
+        instructions: "Para acessar os itens, adicione '/itens' ao final da URL e atualize a página.",
+        additional_message: "✨ Esta API permite realizar operações de CRUD com itens! Experimente as seguintes ações:",
+        actions: {
+            get: "🔍 Faça uma requisição GET para visualizar todos os itens.",
+            post: "➕ Use POST para adicionar novos itens incríveis!",
+            put: "✏️ Atualize os itens existentes com uma requisição PUT.",
+            delete: "🗑️ E não esqueça, você pode remover itens com DELETE!"
+        },
+        postman_link: "👉 Para começar a usar a API, acesse o link do Postman: (https://www.postman.com/)"
+    
     });
 });
 
