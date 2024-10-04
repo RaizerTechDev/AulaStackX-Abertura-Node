@@ -167,3 +167,4 @@ yarn-error.log
 
 
 # End of https://mrkandreev.name/snippets/gitignore-generator/#Git,Node,react,Vuejs,java,html,css,js,angular,npm,next,mongodb,postgreeSQL,MySql
+.vercel
