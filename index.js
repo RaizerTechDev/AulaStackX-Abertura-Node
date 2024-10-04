@@ -15,7 +15,9 @@ server.get("/", (req, res) => {
   res.status(200).json({
     message: "🌟 Bem-vindo à API de Itens!",
     instructions:
-      "Para acessar os itens, adicione '/itens' ao final da URL(https://aula-stack-x-abertura-node.vercel.app/) e atualize a página.",
+      "Para acessar os itens, adicione '/itens' ao final da URL(https://aula-stack-x-abertura-node.vercel.app/) e atualize a página.",      
+      postman_link:
+      "👉 Para começar a usar a API, acesse o link do Postman: (https://www.postman.com/)",
     additional_message:
       "✨ Esta API permite realizar operações de CRUD com itens! Experimente as seguintes ações:",
     actions: {
@@ -26,9 +28,7 @@ server.get("/", (req, res) => {
       get: "🔍 Faça uma requisição GET para visualizar todos os itens.",
       put: "✏️ Atualize os itens existentes com uma requisição PUT.",
       delete: "🗑️ E não esqueça, você pode remover itens com DELETE!",
-    },
-    postman_link:
-      "👉 Para começar a usar a API, acesse o link do Postman: (https://www.postman.com/)",
+    },  
   });
 });
 
