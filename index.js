@@ -20,7 +20,8 @@ server.get("/", (req, res) => {
       "✨ Esta API permite realizar operações de CRUD com itens! Experimente as seguintes ações:",
     actions: {
       post: "➕ Use POST em (json) para adicionar novos itens incríveis!👇🏽",
-      Exemplo: {
+      Exemplo:
+      {
         item: "Shampoo",
       },
       get: "🔍 Faça uma requisição GET para visualizar todos os itens.",
