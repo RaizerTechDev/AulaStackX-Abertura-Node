@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { marked } from "marked"; // Converter Markdown para HTML
-import {createItem, deleteItem, readItem, readItemById, updateItem } from "./business_crud.js";
+import { createItem, deleteItem, readItem, readItemById, updateItem } from "./business_crud.js";
 
 const server = Express();
 server.use(Express.json());
@@ -13,10 +13,14 @@ server.get("/", (req, res) => {
   try {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    const readmePath = path.join(__dirname, "README.md");
+    const readmePath = path.join(__dirname, "README.md"); // Usar __dirname para leitura local
+
+    // Alternativa para produção
+    const isProduction = process.env.VERCEL_ENV === 'production';
+    const finalReadmePath = isProduction ? path.resolve("README.md") : readmePath;
 
     // Leitura assíncrona do arquivo
-    fs.readFile(readmePath, "utf-8", (err, data) => {
+    fs.readFile(finalReadmePath, "utf-8", (err, data) => {
       if (err) {
         // Tratamento de erro ao ler o arquivo
         return res.status(500).json({
