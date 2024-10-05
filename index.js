@@ -10,57 +10,51 @@ server.use(Express.json());
 
 // Função para ler o README.md
 server.get("/", (req, res) => {
-  try {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    const readmePath = path.join(__dirname, "README.md"); // Usar __dirname para leitura local
-
-    // Alternativa para produção
-    const isProduction = process.env.VERCEL_ENV === 'production';
-    const finalReadmePath = isProduction ? path.resolve("README.md") : readmePath;
-
-    // Leitura assíncrona do arquivo
-    fs.readFile(finalReadmePath, "utf-8", (err, data) => {
-      if (err) {
-        // Tratamento de erro ao ler o arquivo
-        return res.status(500).json({
-          message: "Erro ao carregar a documentação",
-          error: err.message,
-        });
-      }
-
-      // Dividindo o conteúdo do README em linhas
-      const readmeLines = data.split("\n");
-
-      // Procurando a seção "## Índice" (ou outra palavra chave)
-      const indexStart = readmeLines.findIndex(line =>
-        line.includes("## Índice")
-      );
-
-      if (indexStart === -1) {
-        return res.status(404).json({
-          message: "Seção de índice não encontrada.",
-        });
-      }
-
-      // Pegando o conteúdo a partir do índice
-      const contentFromIndex = readmeLines.slice(indexStart).join("\n");
-
-      // Convertendo a parte selecionada de Markdown para HTML
-      const htmlContent = marked(contentFromIndex);
-
-      // Enviar o conteúdo convertido em HTML
-      res.send(htmlContent);
-    });
-  } catch (error) {
-    // Tratamento de erros gerais
-    res.status(500).json({
-      message: "Erro ao carregar a documentação",
-      error: error.message,
-    });
-  }
-});
-
+    try {
+      const readmePath = path.resolve(process.cwd(), "README.md"); // Usar caminho absoluto
+  
+      // Leitura assíncrona do arquivo
+      fs.readFile(readmePath, "utf-8", (err, data) => {
+        if (err) {
+          // Tratamento de erro ao ler o arquivo
+          return res.status(500).json({
+            message: "Erro ao carregar a documentação",
+            error: err.message,
+          });
+        }
+  
+        // Dividindo o conteúdo do README em linhas
+        const readmeLines = data.split("\n");
+  
+        // Procurando a seção "## Índice" (ou outra palavra chave)
+        const indexStart = readmeLines.findIndex(line =>
+          line.includes("## Índice")
+        );
+  
+        if (indexStart === -1) {
+          return res.status(404).json({
+            message: "Seção de índice não encontrada.",
+          });
+        }
+  
+        // Pegando o conteúdo a partir do índice
+        const contentFromIndex = readmeLines.slice(indexStart).join("\n");
+  
+        // Convertendo a parte selecionada de Markdown para HTML
+        const htmlContent = marked(contentFromIndex);
+  
+        // Enviar o conteúdo convertido em HTML
+        res.send(htmlContent);
+      });
+    } catch (error) {
+      // Tratamento de erros gerais
+      res.status(500).json({
+        message: "Erro ao carregar a documentação",
+        error: error.message,
+      });
+    }
+  });
+  
 // Outros endpoints da API
 server.get("/itens", (req, res) => {
   const item = readItem();
