@@ -6,13 +6,22 @@ const server = Express();
 server.use(Express.json());
 
 // Rota principal
+// Rota principal
 server.get("/", (req, res) => {
-  res.status(200).json({
-    message: "🌟 Bem-vindo à API de Itens!",
-    instructions: "Acesse '/documentation' para ver a documentação da API.",
-    postman_link: "👉 Para começar a usar a API, acesse o link do Postman: (https://www.postman.com/)"
+    res.status(200).send(`
+      <html>
+        <head>
+          <title>Bem-vindo à API de Itens!</title>
+        </head>
+        <body>
+          <h1>🌟 Bem-vindo à API de Itens!</h1>
+          <p>Acesse <a href="/documentation">/documentation</a> para ver a documentação da API.</p>
+          <p>👉 Para começar a usar a API, acesse o link do Postman: <a href="https://www.postman.com/">Postman</a></p>
+        </body>
+      </html>
+    `);
   });
-});
+  
 
 // Rota para a documentação em JSON
 server.get("/documentation", (req, res) => {
