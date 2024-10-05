@@ -10,13 +10,10 @@
     {
       "src": "/documentation",
       "dest": "/index.js"
-    },
-    {
-      "src": "/documentation.swagger.json",
-      "dest": "/public/documentation.swagger.json"
     }
   ]
 }
+
 
 
   
