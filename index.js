@@ -1,11 +1,13 @@
 import Express from "express";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
+import { marked } from "marked"; // Converter Markdown para HTML
+import { createItem, deleteItem, readItem, readItemById, updateItem } from "./business_crud.js";
 
 const server = Express();
 server.use(Express.json());
 
-// Rota principal
 // Rota principal
 server.get("/", (req, res) => {
     res.status(200).send(`
@@ -20,8 +22,7 @@ server.get("/", (req, res) => {
         </body>
       </html>
     `);
-  });
-  
+  });  
 
 // Rota para a documentação em JSON
 server.get("/documentation", (req, res) => {
@@ -39,23 +40,45 @@ server.get("/documentation", (req, res) => {
 
 // Outros endpoints da API
 server.get("/itens", (req, res) => {
-  // Lógica para retornar itens
+  const item = readItem();
+  res.status(200).json(item);
 });
 
 server.get("/itens/:id", (req, res) => {
-  // Lógica para retornar um item específico
+  const id = req.params.id;
+  const item = readItemById(id);
+  if (item) {
+    res.status(200).json(item);
+  } else {
+    res.status(404).json({ message: "Item não encontrado." });
+  }
 });
 
 server.post("/itens", (req, res) => {
-  // Lógica para adicionar um item
+  const item = req.body;
+  const newItem = createItem(item);
+  res.status(201).json(newItem);
 });
 
 server.put("/itens/:id", (req, res) => {
-  // Lógica para atualizar um item
+  const id = req.params.id;
+  const nameUpdate = req.body;
+  const item = updateItem(id, nameUpdate);
+  if (item) {
+    res.status(200).json(item);
+  } else {
+    res.status(404).json({ message: "Item não encontrado." });
+  }
 });
 
 server.delete("/itens/:id", (req, res) => {
-  // Lógica para deletar um item
+  const id = req.params.id;
+  const item = deleteItem(id);
+  if (item) {
+    res.status(200).json({ message: "Item deletado com sucesso!" });
+  } else {
+    res.status(404).json({ message: "Item não encontrado." });
+  }
 });
 
 const port = process.env.PORT || 3000;
