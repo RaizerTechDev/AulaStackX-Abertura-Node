@@ -1,42 +1,68 @@
 import Express from "express";
-import {
-  createItem,
-  deleteItem,
-  readItem,
-  readItemById,
-  updateItem,
-} from "./business_crud.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { marked } from "marked"; // Converter Markdown para HTML
+import {createItem, deleteItem, readItem, readItemById, updateItem } from "./business_crud.js";
 
 const server = Express();
-
 server.use(Express.json());
 
+// Função para ler o README.md
 server.get("/", (req, res) => {
-  res.status(200).json({
-    message: "🌟 Bem-vindo à API de Itens!",
-    instructions:
-      "Para acessar os itens, adicione '/itens' ao final da URL(https://aula-stack-x-abertura-node.vercel.app/) e atualize a página.",
-    postman_link:
-      "👉 Para começar a usar a API, acesse o link do Postman: (https://www.postman.com/)",
-    additional_message:
-      "✨ Esta API permite realizar operações de CRUD com itens! Experimente as seguintes ações:",
-    actions: {
-      post: "➕ Use POST em (json) para adicionar novos itens incríveis! Exemplo de itens (https://github.com/RafaRz76Dev/AulaStackX-Abertura-Node/blob/master/create_post.json)",
-      get: "🔍 Faça uma requisição GET para visualizar todos os itens ou por (/ID) selecionando o item .",
-      put: "✏️ Atualize os itens existentes da lista (GET) com uma requisição PUT.",
-      delete:
-        "🗑️ E não esqueça, você pode remover itens com DELETE por (/ID) da lista (GET)!",
-    },
-  });
+  try {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    const readmePath = path.join(__dirname, "README.md");
+
+    // Leitura assíncrona do arquivo
+    fs.readFile(readmePath, "utf-8", (err, data) => {
+      if (err) {
+        // Tratamento de erro ao ler o arquivo
+        return res.status(500).json({
+          message: "Erro ao carregar a documentação",
+          error: err.message,
+        });
+      }
+
+      // Dividindo o conteúdo do README em linhas
+      const readmeLines = data.split("\n");
+
+      // Procurando a seção "## Índice" (ou outra palavra chave)
+      const indexStart = readmeLines.findIndex(line =>
+        line.includes("## Índice")
+      );
+
+      if (indexStart === -1) {
+        return res.status(404).json({
+          message: "Seção de índice não encontrada.",
+        });
+      }
+
+      // Pegando o conteúdo a partir do índice
+      const contentFromIndex = readmeLines.slice(indexStart).join("\n");
+
+      // Convertendo a parte selecionada de Markdown para HTML
+      const htmlContent = marked(contentFromIndex);
+
+      // Enviar o conteúdo convertido em HTML
+      res.send(htmlContent);
+    });
+  } catch (error) {
+    // Tratamento de erros gerais
+    res.status(500).json({
+      message: "Erro ao carregar a documentação",
+      error: error.message,
+    });
+  }
 });
 
-// Endpoint GET
+// Outros endpoints da API
 server.get("/itens", (req, res) => {
   const item = readItem();
   res.status(200).json(item);
 });
 
-// Endpoint GET/ID
 server.get("/itens/:id", (req, res) => {
   const id = req.params.id;
   const item = readItemById(id);
@@ -47,14 +73,12 @@ server.get("/itens/:id", (req, res) => {
   }
 });
 
-// Endpoint POST
 server.post("/itens", (req, res) => {
   const item = req.body;
   const newItem = createItem(item);
   res.status(201).json(newItem);
 });
 
-// Endpoint PUT
 server.put("/itens/:id", (req, res) => {
   const id = req.params.id;
   const nameUpdate = req.body;
@@ -66,7 +90,6 @@ server.put("/itens/:id", (req, res) => {
   }
 });
 
-// Endpoint DELETE
 server.delete("/itens/:id", (req, res) => {
   const id = req.params.id;
   const item = deleteItem(id);

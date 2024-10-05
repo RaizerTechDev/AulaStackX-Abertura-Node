@@ -22,7 +22,8 @@
     "aulastackx-abertura-node": "file:",
     "express": "^4.21.0",
     "fetch": "^1.1.0",
-    "filesystem": "^1.0.1"
+    "filesystem": "^1.0.1",
+    "marked": "^14.1.2"
   },
   "type": "module"
 }
