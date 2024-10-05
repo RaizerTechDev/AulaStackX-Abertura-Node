@@ -23,7 +23,9 @@
     "express": "^4.21.0",
     "fetch": "^1.1.0",
     "filesystem": "^1.0.1",
-    "marked": "^14.1.2"
+    "marked": "^14.1.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
   },
   "type": "module"
 }

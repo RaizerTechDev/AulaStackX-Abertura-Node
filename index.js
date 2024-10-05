@@ -1,41 +1,39 @@
 import Express from "express";
+import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
-import { marked } from "marked"; // Converter Markdown para HTML
 import { createItem, deleteItem, readItem, readItemById, updateItem } from "./business_crud.js";
 
 const server = Express();
 server.use(Express.json());
 
+// Carregar o arquivo Swagger com tratamento de erros
+let swaggerFile;
+
+try {
+  swaggerFile = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "documentation.swagger.json"), 'utf-8'));
+} catch (error) {
+  console.error("Erro ao ler o arquivo Swagger:", error);
+  process.exit(1); // Encerra o processo com erro
+}
+
+// Usar Swagger UI para servir a documentação
+server.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 // Rota principal
 server.get("/", (req, res) => {
-    res.status(200).send(`
-      <html>
-        <head>
-          <title>Bem-vindo à API de Itens!</title>
-        </head>
-        <body>
-          <h1>🌟 Bem-vindo à API de Itens!</h1>
-          <p>Acesse <a href="/documentation">/documentation</a> para ver a documentação da API.</p>
-          <p>👉 Para começar a usar a API, acesse o link do Postman: <a href="https://www.postman.com/">Postman</a></p>
-        </body>
-      </html>
-    `);
-  });  
-
-// Rota para a documentação em JSON
-server.get("/documentation", (req, res) => {
-  const documentationPath = path.resolve(process.cwd(), "documentation.json");
-  fs.readFile(documentationPath, "utf-8", (err, data) => {
-    if (err) {
-      return res.status(500).json({
-        message: "Erro ao carregar a documentação",
-        error: err.message,
-      });
-    }
-    res.json(JSON.parse(data));
-  });
+  res.status(200).send(`
+    <html>
+      <head>
+        <title>Bem-vindo à API de Itens!</title>
+      </head>
+      <body>
+        <h1>🌟 Bem-vindo à API de Itens!</h1>
+        <p>Acesse <a href="/documentation">/documentation</a> para ver a documentação da API.</p>
+        <p>👉 Para começar a usar a API, acesse o link do Postman: <a href="https://www.postman.com/">Postman</a></p>
+      </body>
+    </html>
+  `);
 });
 
 // Outros endpoints da API

@@ -1,0 +1,147 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Itens",
+    "version": "1.0.0",
+    "description": "Documentação da API de Itens"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor local"
+    }
+  ],
+  "paths": {
+    "/itens": {
+      "get": {
+        "summary": "Obter todos os itens",
+        "responses": {
+          "200": {
+            "description": "Lista de todos os itens",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "nome":  {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Adicionar um novo item",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Item adicionado com sucesso"
+          }
+        }
+      }
+    },
+    "/itens/{id}": {
+      "get": {
+        "summary": "Obter item por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalhes do item"
+          },
+          "404": {
+            "description": "Item não encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar item por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Item atualizado com sucesso"
+          },
+          "404": {
+            "description": "Item não encontrado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Excluir item por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Item deletado com sucesso"
+          },
+          "404": {
+            "description": "Item não encontrado"
+          }
+        }
+      }
+    }
+  }
+}
