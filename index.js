@@ -1,8 +1,14 @@
 import Express from "express";
-import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import path from "path";
-import { createItem, deleteItem, readItem, readItemById, updateItem } from "./business_crud.js";
+import swaggerUi from "swagger-ui-express";
+import {
+  createItem,
+  deleteItem,
+  readItem,
+  readItemById,
+  updateItem,
+} from "./business_crud.js";
 
 const server = Express();
 server.use(Express.json());
@@ -10,17 +16,28 @@ server.use(Express.json());
 let swaggerFile;
 
 try {
-  swaggerFile = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "public", "documentation.swagger.json"), 'utf-8'));
+  swaggerFile = JSON.parse(
+    fs.readFileSync(
+      path.resolve(process.cwd(), "public", "documentation.swagger.json"),
+      "utf-8"
+    )
+  );
   console.log("Swagger file loaded successfully:", swaggerFile); // Adicione esta linha para depuração
 } catch (error) {
   console.error("Erro ao ler o arquivo Swagger:", error);
   process.exit(1); // Encerra o processo com erro
 }
 
-
 // Usar Swagger UI para servir a documentação
-server.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
+server.use(
+  "/documentation",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerFile, {
+    swaggerOptions: {
+      url: "/documentation.swagger.json", // O caminho para o arquivo JSON
+    },
+  })
+);
 
 // Rota principal
 server.get("/", (req, res) => {
