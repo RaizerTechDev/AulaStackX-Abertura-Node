@@ -11,13 +11,16 @@ let swaggerFile;
 
 try {
   swaggerFile = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "public", "documentation.swagger.json"), 'utf-8'));
+  console.log("Swagger file loaded successfully:", swaggerFile); // Adicione esta linha para depuração
 } catch (error) {
   console.error("Erro ao ler o arquivo Swagger:", error);
   process.exit(1); // Encerra o processo com erro
 }
 
+
 // Usar Swagger UI para servir a documentação
 server.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 
 // Rota principal
 server.get("/", (req, res) => {
