@@ -7,14 +7,14 @@ import { createItem, deleteItem, readItem, readItemById, updateItem } from "./bu
 const server = Express();
 server.use(Express.json());
 
-// Carregar o arquivo Swagger com tratamento de erros
+// Carregar o arquivo Swagger
 let swaggerFile;
 
 try {
   swaggerFile = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "documentation.swagger.json"), 'utf-8'));
 } catch (error) {
   console.error("Erro ao ler o arquivo Swagger:", error);
-  process.exit(1); // Encerra o processo com erro
+  process.exit(1);
 }
 
 // Usar Swagger UI para servir a documentação
@@ -38,8 +38,8 @@ server.get("/", (req, res) => {
 
 // Outros endpoints da API
 server.get("/itens", (req, res) => {
-  const item = readItem();
-  res.status(200).json(item);
+  const items = readItem();
+  res.status(200).json(items);
 });
 
 server.get("/itens/:id", (req, res) => {
