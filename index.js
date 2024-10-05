@@ -1,101 +1,52 @@
 import Express from "express";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
-import { marked } from "marked"; // Converter Markdown para HTML
-import { createItem, deleteItem, readItem, readItemById, updateItem } from "./business_crud.js";
 
 const server = Express();
 server.use(Express.json());
 
-// Função para ler o README.md
+// Rota principal
 server.get("/", (req, res) => {
-    try {
-      const readmePath = path.resolve(process.cwd(), "README.md"); // Usar caminho absoluto
-  
-      // Leitura assíncrona do arquivo
-      fs.readFile(readmePath, "utf-8", (err, data) => {
-        if (err) {
-          // Tratamento de erro ao ler o arquivo
-          return res.status(500).json({
-            message: "Erro ao carregar a documentação",
-            error: err.message,
-          });
-        }
-  
-        // Dividindo o conteúdo do README em linhas
-        const readmeLines = data.split("\n");
-  
-        // Procurando a seção "## Índice" (ou outra palavra chave)
-        const indexStart = readmeLines.findIndex(line =>
-          line.includes("## Índice")
-        );
-  
-        if (indexStart === -1) {
-          return res.status(404).json({
-            message: "Seção de índice não encontrada.",
-          });
-        }
-  
-        // Pegando o conteúdo a partir do índice
-        const contentFromIndex = readmeLines.slice(indexStart).join("\n");
-  
-        // Convertendo a parte selecionada de Markdown para HTML
-        const htmlContent = marked(contentFromIndex);
-  
-        // Enviar o conteúdo convertido em HTML
-        res.send(htmlContent);
-      });
-    } catch (error) {
-      // Tratamento de erros gerais
-      res.status(500).json({
+  res.status(200).json({
+    message: "🌟 Bem-vindo à API de Itens!",
+    instructions: "Acesse '/documentation' para ver a documentação da API.",
+    postman_link: "👉 Para começar a usar a API, acesse o link do Postman: (https://www.postman.com/)"
+  });
+});
+
+// Rota para a documentação em JSON
+server.get("/documentation", (req, res) => {
+  const documentationPath = path.resolve(process.cwd(), "documentation.json");
+  fs.readFile(documentationPath, "utf-8", (err, data) => {
+    if (err) {
+      return res.status(500).json({
         message: "Erro ao carregar a documentação",
-        error: error.message,
+        error: err.message,
       });
     }
+    res.json(JSON.parse(data));
   });
-  
+});
+
 // Outros endpoints da API
 server.get("/itens", (req, res) => {
-  const item = readItem();
-  res.status(200).json(item);
+  // Lógica para retornar itens
 });
 
 server.get("/itens/:id", (req, res) => {
-  const id = req.params.id;
-  const item = readItemById(id);
-  if (item) {
-    res.status(200).json(item);
-  } else {
-    res.status(404).json({ message: "Item não encontrado." });
-  }
+  // Lógica para retornar um item específico
 });
 
 server.post("/itens", (req, res) => {
-  const item = req.body;
-  const newItem = createItem(item);
-  res.status(201).json(newItem);
+  // Lógica para adicionar um item
 });
 
 server.put("/itens/:id", (req, res) => {
-  const id = req.params.id;
-  const nameUpdate = req.body;
-  const item = updateItem(id, nameUpdate);
-  if (item) {
-    res.status(200).json(item);
-  } else {
-    res.status(404).json({ message: "Item não encontrado." });
-  }
+  // Lógica para atualizar um item
 });
 
 server.delete("/itens/:id", (req, res) => {
-  const id = req.params.id;
-  const item = deleteItem(id);
-  if (item) {
-    res.status(200).json({ message: "Item deletado com sucesso!" });
-  } else {
-    res.status(404).json({ message: "Item não encontrado." });
-  }
+  // Lógica para deletar um item
 });
 
 const port = process.env.PORT || 3000;

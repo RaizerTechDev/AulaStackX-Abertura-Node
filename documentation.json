@@ -1,0 +1,143 @@
+{
+    "Índice": {
+      "1": "Instalação",
+      "2": "Uso",
+      "3": "Endpoints",
+      "4": "Instruções",
+      "5": "Observações"
+    },
+    "Instalação": {
+      "1": "Clone o repositório:",
+      "2": "git clone https://github.com/seu-usuario/nome-do-repositorio.git",
+      "3": "Navegue até o diretório do projeto:",
+      "4": "cd nome-do-repositorio",
+      "5": "Instale as dependências:",
+      "6": "npm install express fetch filesystem marked",
+      "observacao": "Marked foi instalado permitindo que links, imagens e formatação sejam renderizados corretamente na documentação do Readme.",
+      "7": "Inicie o servidor:",
+      "8": "npm run nodemon",
+      "9": "O servidor será iniciado em http://localhost:3000."
+    },
+    "Uso": {
+      "descricao": "A API permite realizar as seguintes operações:",
+      "1": "GET: Obter todos os itens ou um item específico por ID.",
+      "2": "POST: Adicionar um novo item.",
+      "3": "PUT: Atualizar um item existente.",
+      "4": "DELETE: Remover um item por ID.",
+      "5": "Postman: Você pode usar o Postman para testar as rotas da API."
+    },
+    "Endpoints": {
+      "1": {
+        "rota": "GET /",
+        "descricao": "Rota principal para verificar se a API está funcionando corretamente.",
+        "resposta": {
+          "status": 200,
+          "body": {
+            "message": "🌟 Bem-vindo à API de Itens!",
+            "instructions": "Para acessar os itens, adicione '/itens' ao final da URL (https://aula-stack-x-abertura-node.vercel.app/) e atualize a página.",
+            "postman_link": "👉 Para começar a usar a API, acesse o link do Postman: (https://www.postman.com/)"
+          }
+        }
+      },
+      "2": {
+        "rota": "GET /itens",
+        "descricao": "Retorna uma lista de todos os itens.",
+        "resposta": {
+          "status": 200,
+          "body": [
+            {
+              "id": 1,
+              "nome": "Item 1"
+            },
+            {
+              "id": 2,
+              "nome": "Item 2"
+            }
+          ]
+        }
+      },
+      "3": {
+        "rota": "GET /itens/:id",
+        "descricao": "Retorna um item específico com base no ID.",
+        "parametro": "id: O ID do item que deseja obter.",
+        "resposta": {
+          "status": 200,
+          "body": {
+            "id": 1,
+            "nome": "Item 1"
+          },
+          "404": {
+            "body": {
+              "message": "Item não encontrado."
+            }
+          }
+        }
+      },
+      "4": {
+        "rota": "POST /itens",
+        "descricao": "Adiciona um novo item à lista.",
+        "corpo_requisicao": {
+          "nome": "Novo Item"
+        },
+        "resposta": {
+          "status": 201,
+          "body": {
+            "id": 3,
+            "nome": "Novo Item"
+          }
+        }
+      },
+      "5": {
+        "rota": "PUT /itens/:id",
+        "descricao": "Atualiza um item existente com base no ID.",
+        "parametro": "id: O ID do item que deseja atualizar.",
+        "corpo_requisicao": {
+          "nome": "Item Atualizado"
+        },
+        "resposta": {
+          "status": 200,
+          "body": {
+            "id": 1,
+            "nome": "Item Atualizado"
+          },
+          "404": {
+            "body": {
+              "message": "Item não encontrado."
+            }
+          }
+        }
+      },
+      "6": {
+        "rota": "DELETE /itens/:id",
+        "descricao": "Remove um item com base no ID.",
+        "parametro": "id: O ID do item que deseja remover.",
+        "resposta": {
+          "status": 200,
+          "body": {
+            "message": "Item deletado com sucesso!"
+          },
+          "404": {
+            "body": {
+              "message": "Item não encontrado."
+            }
+          }
+        }
+      }
+    },
+    "Instruções": {
+      "descricao": "Instruções para realizar operações de CRUD com itens!",
+      "1": "🔊 Para acessar os itens, adicione '/itens' ao final da URL (https://aula-stack-x-abertura-node.vercel.app/) e atualize a página.",
+      "2": "👉 Para começar a usar a API, acesse o link do Postman: (https://www.postman.com/)",
+      "3": "✨ Esta API permite experimentar as seguintes ações:",
+      "4": "➕ Use \"POST\" em (json) para adicionar novos itens incríveis! Exemplo de itens: { \"itens\": \"Shampoo\" }",
+      "5": "🔍 Faça uma requisição \"GET\" para visualizar todos os itens ou por (/ID) selecionando o item.",
+      "6": "✏️ Atualize os itens existentes da lista (GET) com uma requisição \"PUT\".",
+      "7": "🗑️ E não esqueça, você pode remover itens com \"DELETE\" por (/ID) da lista (GET)!"
+    },
+    "Observações": {
+      "1": "Para testar a API, você pode usar ferramentas como o Postman ou curl.",
+      "2": "A API está configurada para rodar localmente na porta 3000, mas você pode definir uma porta diferente configurando a variável de ambiente PORT.",
+      "3": "O servidor retornará uma mensagem de erro 404 se o item não for encontrado para as requisições GET, PUT ou DELETE."
+    }
+  }
+  
