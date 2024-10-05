@@ -12,6 +12,12 @@ const swaggerFile = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public'
 
 server.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
+
+server.get('/documentation', (req, res) => {
+  console.log('Documentação acessada');
+  swaggerUi.serve(req, res, swaggerUi.setup(swaggerFile));
+});
+
 // Rota principal
 server.get("/", (req, res) => {
   res.status(200).send(`
