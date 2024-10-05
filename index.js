@@ -1,43 +1,24 @@
 import Express from "express";
+import swaggerUi from "swagger-ui-express";
 import fs from "fs";
 import path from "path";
-import swaggerUi from "swagger-ui-express";
-import {
-  createItem,
-  deleteItem,
-  readItem,
-  readItemById,
-  updateItem,
-} from "./business_crud.js";
+import { createItem, deleteItem, readItem, readItemById, updateItem } from "./business_crud.js";
 
 const server = Express();
 server.use(Express.json());
-// Carregar o arquivo Swagger do diretório public
+
+// Carregar o arquivo Swagger
 let swaggerFile;
 
 try {
-  swaggerFile = JSON.parse(
-    fs.readFileSync(
-      path.resolve(process.cwd(), "public", "documentation.swagger.json"),
-      "utf-8"
-    )
-  );
-  console.log("Swagger file loaded successfully:", swaggerFile); // Adicione esta linha para depuração
+  swaggerFile = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "public", "documentation.swagger.json"), 'utf-8'));
 } catch (error) {
   console.error("Erro ao ler o arquivo Swagger:", error);
   process.exit(1); // Encerra o processo com erro
 }
 
 // Usar Swagger UI para servir a documentação
-server.use(
-  "/documentation",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerFile, {
-    swaggerOptions: {
-      url: "/documentation.swagger.json", // O caminho para o arquivo JSON
-    },
-  })
-);
+server.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 // Rota principal
 server.get("/", (req, res) => {
@@ -49,11 +30,11 @@ server.get("/", (req, res) => {
       <body>
         <h1>🌟 Bem-vindo à API de Itens!</h1>
         <p>Acesse <a href="/documentation">/documentation</a> para ver a documentação da API.</p>
-        <p>👉 Para começar a usar a API, acesse o link do Postman: <a href="https://www.postman.com/">Postman</a></p>
       </body>
     </html>
   `);
 });
+
 // Outros endpoints da API
 server.get("/itens", (req, res) => {
   const items = readItem();

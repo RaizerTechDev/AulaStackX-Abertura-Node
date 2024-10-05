@@ -28,7 +28,7 @@
                       "id": {
                         "type": "integer"
                       },
-                      "nome":  {
+                      "nome": {
                         "type": "string"
                       }
                     }
@@ -54,11 +54,11 @@
                 }
               }
             }
-          }
-        },
-        "responses": {
-          "201": {
-            "description": "Item adicionado com sucesso"
+          },
+          "responses": {
+            "201": {
+              "description": "Item adicionado com sucesso"
+            }
           }
         }
       }
@@ -110,14 +110,14 @@
                 }
               }
             }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Item atualizado com sucesso"
           },
-          "404": {
-            "description": "Item não encontrado"
+          "responses": {
+            "200": {
+              "description": "Item atualizado com sucesso"
+            },
+            "404": {
+              "description": "Item não encontrado"
+            }
           }
         }
       },
