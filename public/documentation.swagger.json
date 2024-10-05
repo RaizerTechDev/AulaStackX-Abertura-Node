@@ -39,6 +39,7 @@
           }
         }
       },
+          
       "post": {
         "summary": "Adicionar um novo item",
         "requestBody": {
@@ -54,11 +55,11 @@
                 }
               }
             }
-          },
-          "responses": {
-            "201": {
-              "description": "Item adicionado com sucesso"
-            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Item adicionado com sucesso"
           }
         }
       }
@@ -110,14 +111,14 @@
                 }
               }
             }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Item atualizado com sucesso"
           },
-          "responses": {
-            "200": {
-              "description": "Item atualizado com sucesso"
-            },
-            "404": {
-              "description": "Item não encontrado"
-            }
+          "404": {
+            "description": "Item não encontrado"
           }
         }
       },

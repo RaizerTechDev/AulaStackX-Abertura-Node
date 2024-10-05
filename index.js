@@ -7,6 +7,7 @@ import { createItem, deleteItem, readItem, readItemById, updateItem } from "./bu
 const server = Express();
 server.use(Express.json());
 
+
 // Carregar o arquivo Swagger
 let swaggerFile;
 
