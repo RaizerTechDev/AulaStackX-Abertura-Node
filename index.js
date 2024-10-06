@@ -7,19 +7,16 @@ import { createItem, deleteItem, readItem, readItemById, updateItem } from "./bu
 const server = Express();
 server.use(Express.json());
 
+// Carregar arquivo da pasta public
+const swaggerFile = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'documentation.swagger.json'), 'utf-8'));
 
-// Carregar o arquivo Swagger
-let swaggerFile;
-
-try {
-  swaggerFile = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "public", "documentation.swagger.json"), 'utf-8'));
-} catch (error) {
-  console.error("Erro ao ler o arquivo Swagger:", error);
-  process.exit(1); // Encerra o processo com erro
-}
-
-// Usar Swagger UI para servir a documentação
 server.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
+
+server.get('/documentation', (req, res) => {
+  console.log('Documentação acessada');
+  swaggerUi.serve(req, res, swaggerUi.setup(swaggerFile));
+});
 
 // Rota principal
 server.get("/", (req, res) => {
@@ -31,6 +28,7 @@ server.get("/", (req, res) => {
       <body>
         <h1>🌟 Bem-vindo à API de Itens!</h1>
         <p>Acesse <a href="/documentation">/documentation</a> para ver a documentação da API.</p>
+        <p>👉 Para começar a usar a API, acesse o link do Postman: <a href="https://www.postman.com/">Postman</a></p>
       </body>
     </html>
   `);
