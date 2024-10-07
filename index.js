@@ -1,6 +1,7 @@
 import Express from "express";
 import { createItem, deleteItem, readItem, readItemById, updateItem } from "./business_crud.js";
 import dotenv from "dotenv"; // Importando dotenv
+
 dotenv.config(); // Carregando as variáveis de ambiente
 
 const server = Express();
