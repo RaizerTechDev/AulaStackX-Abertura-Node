@@ -1,6 +1,12 @@
-import Express from "express";
-import { createItem, deleteItem, readItem, readItemById, updateItem } from "./business_crud.js";
 import dotenv from "dotenv"; // Importando dotenv
+import Express from "express";
+import {
+  createItem,
+  deleteItem,
+  readItem,
+  readItemById,
+  updateItem,
+} from "./business_crud.js";
 
 dotenv.config(); // Carregando as variáveis de ambiente
 
@@ -23,12 +29,12 @@ server.get("/", (req, res) => {
 });
 
 // Outros endpoints da API
-server.get("/itens", (req, res) => {
+server.get("/items", (req, res) => {
   const items = readItem();
   res.status(200).json(items);
 });
 
-server.get("/itens/:id", (req, res) => {
+server.get("/items/:id", (req, res) => {
   const id = req.params.id;
   const item = readItemById(id);
   if (item) {
@@ -38,13 +44,13 @@ server.get("/itens/:id", (req, res) => {
   }
 });
 
-server.post("/itens", (req, res) => {
+server.post("/items", (req, res) => {
   const item = req.body;
   const newItem = createItem(item);
   res.status(201).json(newItem);
 });
 
-server.put("/itens/:id", (req, res) => {
+server.put("/items/:id", (req, res) => {
   const id = req.params.id;
   const nameUpdate = req.body;
   const item = updateItem(id, nameUpdate);
@@ -55,7 +61,7 @@ server.put("/itens/:id", (req, res) => {
   }
 });
 
-server.delete("/itens/:id", (req, res) => {
+server.delete("/items/:id", (req, res) => {
   const id = req.params.id;
   const item = deleteItem(id);
   if (item) {
