@@ -1,22 +1,10 @@
 import Express from "express";
-import swaggerUi from "swagger-ui-express";
-import fs from "fs";
-import path from "path";
 import { createItem, deleteItem, readItem, readItemById, updateItem } from "./business_crud.js";
+import dotenv from "dotenv"; // Importando dotenv
+dotenv.config(); // Carregando as variáveis de ambiente
 
 const server = Express();
 server.use(Express.json());
-
-// Carregar arquivo da pasta public
-const swaggerFile = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'public', 'documentation.swagger.json'), 'utf-8'));
-
-server.use('/documentation', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
-
-server.get('/documentation', (req, res) => {
-  console.log('Documentação acessada');
-  swaggerUi.serve(req, res, swaggerUi.setup(swaggerFile));
-});
 
 // Rota principal
 server.get("/", (req, res) => {
@@ -27,8 +15,7 @@ server.get("/", (req, res) => {
       </head>
       <body>
         <h1>🌟 Bem-vindo à API de Itens!</h1>
-        <p>Acesse <a href="/documentation">/documentation</a> para ver a documentação da API.</p>
-        <p>👉 Para começar a usar a API, acesse o link do Postman: <a href="https://www.postman.com/">Postman</a></p>
+        <p>👉 Para acessar a documentação no Postman, clique aqui: <a href="${process.env.POSTMAN_DOC_LINK}" target="_blank">Documentação da API</a></p>       
       </body>
     </html>
   `);
