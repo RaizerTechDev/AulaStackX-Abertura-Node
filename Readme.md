@@ -1,8 +1,5 @@
 # API de Itens - CRUD
-🌟 Bem-vindo à API de Itens!
-Esta API permite que você realize operações CRUD (Criar, Ler, Atualizar, Deletar) em uma lista de itens. Abaixo, estão os detalhes de como utilizar a API, incluindo as rotas disponíveis e exemplos de requisições.
-
-<br>
+🌟 Bem-vindo à API de Itens! Esta API permite que você realize operações CRUD (Criar, Ler, Atualizar, Deletar) em uma lista de itens. Abaixo estão os detalhes de como utilizar a API, incluindo as rotas disponíveis e exemplos de requisições. Para facilitar sua integração e testes, também oferecemos uma documentação do ``Postman``, onde você pode explorar todas as funcionalidades da API de forma interativa.
 
  <div align="center">
 
