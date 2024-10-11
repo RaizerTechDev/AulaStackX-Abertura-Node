@@ -100,25 +100,17 @@ O servidor retornará uma mensagem de erro 404 se o item não for encontrado par
 "Framework Web Minimalista para Node.js".
 "Backend Rápido para Aplicações Web".
 
- ```Git```
+ - ```Git```
  "Sistema de controle de versões"
 
-```Github```
+- ```Github```
 "Plataforma para hospedagem de código-fonte"
 
-```Visual Studio Code```
+- ```Visual Studio Code```
 "Editor de código-fonte"
 
-```Navegador web```
+- ```Navegador web```
 "Interação documentação de Markdow para HTML"
-
-<br>
-
-***
-
-<img src="https://media.giphy.com/media/SS8CV2rQdlYNLtBCiF/giphy.gif" align="center" height="35" width="45">  Ferramenta utilizada no projeto:
-
-- [VsCode](https://code.visualstudio.com/download) (v1.80.1)
 
 <br>
 
