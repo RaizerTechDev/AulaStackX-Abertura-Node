@@ -5,7 +5,7 @@
 
 <img src ="./public/assets/images/doc.png" alt="Descrição da Imagem" height="45"> 
 
-[ ( Clique aqui para saber mais da documentação) ](https://aula-stack-x-abertura-node.vercel.app/)
+[ ( Clique aqui para saber mais da documentação) ](https://raizertechdev-api.vercel.app/)
 
 <br>
 
